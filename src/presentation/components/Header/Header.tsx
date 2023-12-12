@@ -1,33 +1,32 @@
-import { Heading, Box, Button } from "@chakra-ui/react";
+import { Container, Button, Heading, Flex } from "@chakra-ui/react";
 import Link from "next/link";
 
 export const Header: React.FC = () => {
   return (
-    <Box
-      w="100%"
-      p={4}
-      padding="0.5rem 2.5rem"
-      color="white"
+    <Container
+      maxW="container.xl"
       display="flex"
       justifyContent="space-between"
+      alignItems="center"
+      height="80px"
+      flexWrap="wrap"
     >
-      <Link href="/">
-        <Heading
-          fontFamily="'Afacad', sans-serif"
-          backgroundColor="black"
-          width="5rem"
-          textAlign="center"
-          fontSize="1.5rem"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          BREX
-        </Heading>
-      </Link>
-      <Button backgroundColor="#000" variant="solid" color="#fff">
-        Connect Wallet
-      </Button>
-    </Box>
+      <Flex>
+        <Link href="/">
+          <Heading
+            padding="0.3125rem 0.625rem"
+            backgroundColor="#000"
+            fontSize="larger"
+            color="#80ed99"
+            as="h1"
+          >
+            POOL PRIZE
+          </Heading>
+        </Link>
+      </Flex>
+      <Flex>
+        <Button backgroundColor="#fff">Connect Wallet</Button>
+      </Flex>
+    </Container>
   );
 };
