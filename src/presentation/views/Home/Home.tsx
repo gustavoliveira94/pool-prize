@@ -76,7 +76,12 @@ export const Home: React.FC = () => {
           justifyContent="flex-end"
           paddingTop="0.5rem"
         >
-          <Button disabled={side === 0} rightIcon={<CheckCircleIcon />}>
+          <Button
+            backgroundColor="#000"
+            color="#fff"
+            disabled={side === 0}
+            rightIcon={<CheckCircleIcon />}
+          >
             Confirm
           </Button>
         </Box>
