@@ -8,7 +8,7 @@ const Pool = styled("div")(({ selected }: { selected: boolean }) => ({
   height: "15rem",
   cursor: "pointer",
   opacity: selected ? "1" : "0.8",
-  color: selected ? "#80ed99" : "#000",
+  color: selected ? "#80ed99" : "#343a40",
 
   ":hover": {
     opacity: "0.6",
