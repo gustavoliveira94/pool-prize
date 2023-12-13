@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useWallet } from "@/core/hooks/useWallet";
-import { Container, Button, Heading, Flex, Text } from "@chakra-ui/react";
+import { Container, Button, Heading, Flex, Text, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -15,23 +15,31 @@ export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      <Container
+    <Box
+      width="100%"
+      backgroundColor="#343a40"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="80px"
+    >
+      <Flex
         maxW="container.xl"
+        width="100%"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        height="80px"
         flexWrap="wrap"
       >
         <Flex>
           <Link href="/">
             <Heading
               padding="0.3125rem 0.625rem"
-              backgroundColor="#000"
+              backgroundColor="#fff"
               fontSize="larger"
-              color="#80ed99"
+              color="#343a40"
               as="h1"
+              fontFamily="'Afacad', sans-serif"
             >
               POOL PRIZE
             </Heading>
@@ -62,7 +70,7 @@ export const Header: React.FC = () => {
             </Button>
           </UserConnected>
         </Flex>
-      </Container>
-    </>
+      </Flex>
+    </Box>
   );
 };

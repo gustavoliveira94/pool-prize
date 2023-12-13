@@ -53,7 +53,7 @@ export const UserConnected: React.FC<UserConnectedProps> = ({
         </PopoverBody>
         <PopoverFooter display="flex" justifyContent="center">
           <Button
-            backgroundColor="red"
+            backgroundColor="#343a40"
             color="#fff"
             onClick={() => {
               disconnect();
