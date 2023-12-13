@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useWallet } from "@/core/hooks/useWallet";
-import { Container, Button, Heading, Flex, Text, Box } from "@chakra-ui/react";
+import { Button, Heading, Flex, Text, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
 

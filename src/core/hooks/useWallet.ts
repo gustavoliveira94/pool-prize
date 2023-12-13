@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Web3 } from "web3";
 
 import { useToast } from "./useToast";
+import { useWeb3 } from "../state/web3";
 
 export const useWallet = () => {
   const { toast } = useToast();
-
-  const [account, setAccount] = useState("");
-  const [balance, setBalance] = useState(0);
-  const [isDisconnect, setIsDisconnect] = useState(false);
+  const [{ account, balance }, { setWeb3 }] = useWeb3();
 
   const connect = async () => {
     if (!window?.ethereum) {
@@ -32,36 +30,40 @@ export const useWallet = () => {
         });
       }
 
-      setIsDisconnect(false);
-      return setAccount(accounts?.[0]);
+      return setWeb3({ account: accounts?.[0] });
     } catch (e) {
+      toast({
+        position: "bottom-right",
+        title: "Occurred an error to connect your wallet!",
+        status: "error",
+      });
+
       return;
     }
   };
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     try {
+      if (!account) {
+        return;
+      }
+
       const provider = new Web3(window.ethereum);
       const balance = await provider.eth.getBalance(account);
 
-      setBalance(Number(balance) * 10 ** 18);
+      setWeb3({ balance: !!balance ? Number(balance) / 10 ** 18 : 0 });
     } catch (e) {
       return;
     }
-  };
+  }, [account, setWeb3]);
 
   const disconnect = () => {
-    setIsDisconnect(true);
-    setAccount("");
+    setWeb3({ account: "", balance: 0 });
   };
 
   useEffect(() => {
     getBalance();
-
-    if (!isDisconnect) {
-      connect();
-    }
-  }, [account]);
+  }, [account, getBalance]);
 
   return {
     connect,

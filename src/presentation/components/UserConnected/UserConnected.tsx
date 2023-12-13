@@ -48,7 +48,7 @@ export const UserConnected: React.FC<UserConnectedProps> = ({
             width="60%"
             overflow="hidden"
           >
-            <b>Balance:</b> {balance}
+            <b>Balance:</b> {balance?.toFixed(2) || 0}
           </Text>
         </PopoverBody>
         <PopoverFooter display="flex" justifyContent="center">

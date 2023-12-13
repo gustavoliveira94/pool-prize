@@ -15,55 +15,14 @@ import {
 import { CheckCircleIcon } from "@chakra-ui/icons";
 
 import { PoolStyles } from "./styles";
+import { Hero } from "./components/Hero/Hero";
 
 export const Home: React.FC = () => {
   const [side, setSide] = useState(0);
 
   return (
     <>
-      <Grid display="flex" justifyContent="center">
-        <Box
-          width="100%"
-          maxWidth="container.xl"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <Box
-            width="100%"
-            height="calc(100vh - 5rem)"
-            marginBottom="5rem"
-            color="#fff"
-            display="flex"
-            justifyContent="center"
-            flexDirection="column"
-          >
-            <Heading fontSize="50px" textAlign="center">
-              How it works!
-            </Heading>
-            <Divider width="100%" paddingTop="0.5rem" marginBottom="1.875rem" />
-            <Text textAlign="center" fontSize="2.1875rem" lineHeight="2.5rem">
-              You choose a side of the pool and can win prizes when the pool is
-              drawn. If your side is chosen, all of the losing side's money will
-              be distributed to the winning side. Good luck!
-            </Text>
-
-            <Button
-              alignSelf="center"
-              width="20rem"
-              marginTop="3.125rem"
-              backgroundColor="#ff9f1c"
-              color="#fff"
-              fontWeight="600"
-              fontSize="1.5rem"
-              height="3.125rem"
-            >
-              <a href="#pool">Enjoy us!</a>
-            </Button>
-          </Box>
-        </Box>
-      </Grid>
+      <Hero />
       <Grid
         id="pool"
         width="100%"
@@ -148,52 +107,6 @@ export const Home: React.FC = () => {
               Confirm
             </Button>
           </Box>
-        </Box>
-      </Grid>
-      <Grid
-        width="100%"
-        backgroundColor="#343a40"
-        height="6.25rem"
-        marginTop="-6.25rem"
-      >
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          color="#fff"
-        >
-          <b style={{ marginRight: 8 }}>Created by:</b>{" "}
-          <Link
-            href="https://www.linkedin.com/in/gustavoliveira94/"
-            target="_blank"
-            style={{ textDecoration: "underline" }}
-          >
-            Gustavo Oliveira
-          </Link>
-          ,{" "}
-          <Link
-            href="https://www.linkedin.com/in/jo%C3%A3o-victor-eth/"
-            target="_blank"
-            style={{
-              marginRight: 5,
-              marginLeft: 5,
-              textDecoration: "underline",
-            }}
-          >
-            João Victor Ferreira
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="https://www.linkedin.com/in/joao-victor-pereira-santos/"
-            target="_blank"
-            style={{
-              marginRight: 5,
-              marginLeft: 5,
-              textDecoration: "underline",
-            }}
-          >
-            João Victor Santos
-          </Link>
         </Box>
       </Grid>
     </>
