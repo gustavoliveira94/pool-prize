@@ -3,7 +3,7 @@ import { useWallet } from "@/core/hooks/useWallet";
 import { Button, Heading, Flex, Text, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
-
+import poolPrize from '@/presentation/assets/pool-prize.png';
 import { UserConnected } from "../UserConnected/UserConnected";
 
 import metaMaskIcon from "@/presentation/assets/metamask.webp";
@@ -29,22 +29,14 @@ export const Header: React.FC = () => {
         maxW="container.xl"
         width="100%"
         display="flex"
-        justifyContent="space-between"
+        justifyContent="center"
+        gap= '0 50%'
         alignItems="center"
         flexWrap="wrap"
       >
         <Flex>
           <Link href="/">
-            <Heading
-              padding="0.3125rem 0.625rem"
-              backgroundColor="#fff"
-              fontSize="larger"
-              color="#343a40"
-              as="h1"
-              fontFamily="'Afacad', sans-serif"
-            >
-              POOL PRIZE
-            </Heading>
+           <Image src={poolPrize} alt = 'pool prize logo' width={120} />
           </Link>
         </Flex>
         <Flex>
