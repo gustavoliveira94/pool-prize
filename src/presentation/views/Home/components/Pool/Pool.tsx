@@ -89,11 +89,11 @@ export const Pool: React.FC = () => {
                   </Text>
                   <Text>
                     <b style={{ marginRight: 4 }}>Amount:</b>
-                    {rewards.amountPoolA || 0} SepoliaETH
+                    {rewards.amountPoolA?.toFixed(4) || 0} SepoliaETH
                   </Text>
                   <Text>
                     <b>Current Rewards Per User:</b>{" "}
-                    {rewards.currentRewardsPerUserPoolA || 0}
+                    {rewards.currentRewardsPerUserPoolA?.toFixed(4) || 0}
                   </Text>
                 </Box>
                 <Text
@@ -130,11 +130,11 @@ export const Pool: React.FC = () => {
                   </Text>
                   <Text>
                     <b style={{ marginRight: 4 }}>Amount:</b>
-                    {rewards.amountPoolB?.toFixed(5) || 0} SepoliaETH
+                    {rewards.amountPoolB?.toFixed(4) || 0} SepoliaETH
                   </Text>
                   <Text>
                     <b>Current Rewards Per User:</b>{" "}
-                    {rewards.currentRewardsPerUserPoolB?.toFixed(5) || 0}
+                    {rewards.currentRewardsPerUserPoolB?.toFixed(4) || 0}
                   </Text>
                 </Box>
                 <Text
