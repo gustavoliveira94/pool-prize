@@ -202,7 +202,7 @@ export const Pool: React.FC = () => {
             disabled={side === 0}
             rightIcon={<CheckCircleIcon />}
             onClick={() => buyTicket({ id: side })}
-            isDisabled={!side}
+            isDisabled={!side || isFinished}
           >
             Confirm
           </Button>

@@ -24,7 +24,6 @@ export const usePool = () => {
   const [rewards, setRewards] = useState<IRewards>({} as IRewards);
 
   const [trigger, setTrigger] = useState(false);
-  const [triggerRewards, setTriggerRewards] = useState("");
 
   const openPool = async () => {
     try {
@@ -59,7 +58,7 @@ export const usePool = () => {
         status: "success",
       });
 
-      setTriggerRewards("rewards");
+      setTrigger(!trigger);
     } catch (e) {
       toast({
         title: "Transaction error!",
@@ -139,7 +138,7 @@ export const usePool = () => {
           ?.length,
       };
 
-      setTriggerRewards("");
+      setTrigger(!trigger);
 
       return setRewards(formatResult);
     } catch (e) {
@@ -150,13 +149,8 @@ export const usePool = () => {
   useEffect(() => {
     availableClaim();
     checkFinishedPool();
-  }, [account, triggerRewards]);
-
-  useEffect(() => {
-    if (account || triggerRewards === "rewards") {
-      getRewards();
-    }
-  }, [account, triggerRewards]);
+    getRewards();
+  }, [account, trigger]);
 
   return {
     buyTicket,
