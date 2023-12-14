@@ -23,15 +23,20 @@ export const usePool = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [rewards, setRewards] = useState<IRewards>({} as IRewards);
 
+  const [trigger, setTrigger] = useState(false);
+  const [triggerRewards, setTriggerRewards] = useState("");
+
   const openPool = async () => {
     try {
-      await contract?.methods.createPrizedaw(1).send();
+      await contract?.methods.createPrizedaw(100).send();
 
       toast({
         title: "Pool created successful!",
         position: "bottom-right",
         status: "success",
       });
+
+      setTrigger(!trigger);
     } catch (e) {
       toast({
         title: "Pool was not created!",
@@ -53,6 +58,8 @@ export const usePool = () => {
         position: "bottom-right",
         status: "success",
       });
+
+      setTriggerRewards("rewards");
     } catch (e) {
       toast({
         title: "Transaction error!",
@@ -66,7 +73,7 @@ export const usePool = () => {
     try {
       const claim = await contract?.methods.getRewardsAvailable().call();
 
-      console.log(claim);
+      setTrigger(!trigger);
 
       setClaim(Number(claim) / 10 ** 18);
     } catch (e) {
@@ -77,6 +84,8 @@ export const usePool = () => {
   const checkFinishedPool = async () => {
     try {
       const pool = await contract?.methods.getCurrentPrizedaw().call();
+
+      setTrigger(!trigger);
 
       setIsFinished(Boolean(pool?.["isFinished" as keyof typeof pool]));
     } catch (e) {
@@ -93,6 +102,8 @@ export const usePool = () => {
         position: "bottom-right",
         status: "success",
       });
+
+      setTrigger(!trigger);
     } catch (e) {
       toast({
         title: "Withdraw error!",
@@ -106,8 +117,6 @@ export const usePool = () => {
   const getRewards = async () => {
     try {
       const result = await contract?.methods.getCurrentPrizedaw().call();
-
-      console.log(result);
 
       const formatResult = {
         amountPoolA:
@@ -130,6 +139,8 @@ export const usePool = () => {
           ?.length,
       };
 
+      setTriggerRewards("");
+
       return setRewards(formatResult);
     } catch (e) {
       return;
@@ -142,10 +153,10 @@ export const usePool = () => {
   });
 
   useEffect(() => {
-    if (account) {
+    if (account || triggerRewards === "rewards") {
       getRewards();
     }
-  }, [account]);
+  }, [account, triggerRewards]);
 
   return {
     buyTicket,

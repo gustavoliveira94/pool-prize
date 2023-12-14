@@ -11,8 +11,6 @@ export const useContract = () => {
   const [contract, setContract] = useState<IContract>();
 
   const getContract = () => {
-    console.log(account);
-
     const contracts = new ethereum.eth.Contract(
       contractsAbi,
       process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
