@@ -14,7 +14,15 @@ interface IRewards {
   usersPoolB: number;
 }
 
-export const usePool = () => {
+interface IUsePool {
+  trigger: boolean;
+  setTrigger: (e: boolean) => void;
+}
+
+export const usePool = ({
+  trigger: claimTrigger,
+  setTrigger: setClaimTrigger,
+}: IUsePool) => {
   const { contract } = useContract();
   const toast = useToast();
   const [{ account }] = useWeb3();
@@ -140,6 +148,7 @@ export const usePool = () => {
       };
 
       setTriggerRewards("");
+      setClaimTrigger(false);
 
       return setRewards(formatResult);
     } catch (e) {
@@ -150,13 +159,13 @@ export const usePool = () => {
   useEffect(() => {
     availableClaim();
     checkFinishedPool();
-  });
+  }, [account, triggerRewards, claimTrigger]);
 
   useEffect(() => {
-    if (account || triggerRewards === "rewards") {
+    if (account || triggerRewards === "rewards" || claimTrigger) {
       getRewards();
     }
-  }, [account, triggerRewards]);
+  }, [account, triggerRewards, claimTrigger]);
 
   return {
     buyTicket,
