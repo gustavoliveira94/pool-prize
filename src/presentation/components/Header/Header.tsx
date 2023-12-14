@@ -22,6 +22,8 @@ export const Header: React.FC = () => {
       justifyContent="center"
       alignItems="center"
       height="80px"
+      position="fixed"
+      zIndex={100}
     >
       <Flex
         maxW="container.xl"

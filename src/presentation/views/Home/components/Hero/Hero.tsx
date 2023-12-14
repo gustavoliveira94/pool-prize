@@ -11,6 +11,7 @@ export const Hero: React.FC = () => {
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
+        marginBottom="3.125rem"
       >
         <Box
           width="100%"
@@ -21,7 +22,7 @@ export const Hero: React.FC = () => {
           justifyContent="center"
           flexDirection="column"
         >
-          <Heading fontSize="50px" textAlign="center">
+          <Heading fontSize="3.125rem" textAlign="center">
             How it works!
           </Heading>
           <Divider width="100%" paddingTop="0.5rem" marginBottom="1.875rem" />
