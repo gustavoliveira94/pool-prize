@@ -11,6 +11,10 @@ export const useCheckAdmin = () => {
 
   const checkAdmin = async () => {
     try {
+      if (!account) {
+        return setIsAdmin(false);
+      }
+
       const admin = await contract?.methods.checkForAdmin(account).call();
 
       return setIsAdmin(Boolean(admin));
@@ -20,7 +24,7 @@ export const useCheckAdmin = () => {
   };
 
   useEffect(() => {
-    if (account && contract) {
+    if (contract) {
       checkAdmin();
     }
   }, [account, contract]);
