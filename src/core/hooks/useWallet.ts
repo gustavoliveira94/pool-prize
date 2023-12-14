@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useToast } from "./useToast";
 import { useWeb3 } from "../states/web3";
 import { ethereum } from "../utils/ethereum";
+import Web3 from "web3";
 
 export const useWallet = () => {
   const { toast } = useToast();
@@ -56,12 +57,24 @@ export const useWallet = () => {
     }
   };
 
+  const checkNetwork = async () => {
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: Web3.utils.toHex(11155111) }],
+      });
+    } catch (error) {
+      return;
+    }
+  };
+
   const disconnect = () => {
     setWeb3({ account: "", balance: 0 });
   };
 
   useEffect(() => {
     if (account) {
+      checkNetwork();
       getBalance();
     }
   }, [account]);
