@@ -50,7 +50,7 @@ export const usePool = () => {
     try {
       await contract?.methods
         .buyTicket(id)
-        .send({ value: ethers.parseEther("0.001") });
+        .send({ value: Number(ethers.parseEther("0.001")) });
 
       toast({
         title: "Transaction successful!",
