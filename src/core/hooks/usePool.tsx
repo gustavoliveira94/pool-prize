@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 
 import { useContract } from "./useContract";
 import { useWeb3 } from "../states/web3";
+import { useWallet } from "./useWallet";
 
 interface IRewards {
   amountPoolA: number;

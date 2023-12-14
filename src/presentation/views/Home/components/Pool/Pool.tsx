@@ -19,9 +19,12 @@ import Image from "next/image";
 import avengers from "@/presentation/assets/avengers.png";
 import justiceLeague from "@/presentation/assets/justice-league.png";
 import { PoolStyles } from "./styles";
+import { useWeb3 } from "@/core/states/web3";
 
 export const Pool: React.FC = () => {
   const [side, setSide] = useState(0);
+
+  const [{ account }] = useWeb3();
   const { isAdmin } = useCheckAdmin();
   const { draw } = useDraw();
   const { buyTicket, isFinished, openPool, claim, withDraw, rewards } =
@@ -34,7 +37,7 @@ export const Pool: React.FC = () => {
       height="115vh"
       display="flex"
       justifyContent="center"
-      gap=  '0 0.5rem'
+      gap="0 0.5rem"
       paddingBottom="4rem"
     >
       <Box
@@ -45,7 +48,9 @@ export const Pool: React.FC = () => {
         flexDirection="column"
       >
         <Box width="100%">
-          <Heading textAlign="center" fontSize='3rem'>Join the pool for a chance to win prizes!</Heading>
+          <Heading textAlign="center" fontSize="3rem">
+            Join the pool for a chance to win prizes!
+          </Heading>
           <Divider width="100%" paddingTop="0.5rem" />
         </Box>
         <Box
@@ -55,7 +60,12 @@ export const Pool: React.FC = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Card width="80%" backgroundColor="#272a2e" height='35rem' padding= '1rem 2rem'>
+          <Card
+            width="80%"
+            backgroundColor="#272a2e"
+            height="35rem"
+            padding="1rem 2rem"
+          >
             <CardHeader>
               <Box
                 display="flex"
@@ -78,20 +88,23 @@ export const Pool: React.FC = () => {
             </CardHeader>
             <CardBody padding="0" display="flex" position="relative">
               <PoolStyles.Pool selected={side === 1} onClick={() => setSide(1)}>
-   
                 <Text
                   fontSize="3.5rem"
                   fontWeight="600"
                   color="#fff"
                   fontFamily="'Afacad', sans-serif"
                   display="flex"
-                  flexDirection='column'
+                  flexDirection="column"
                   alignItems="center"
                   justifyContent="center"
                 >
-                  
                   MARVEL
-                  <Image src={avengers} alt="avengers" width={220} height={220} />
+                  <Image
+                    src={avengers}
+                    alt="avengers"
+                    width={220}
+                    height={220}
+                  />
                 </Text>
                 <Box
                   display="flex"
@@ -99,55 +112,57 @@ export const Pool: React.FC = () => {
                   gap="0.625rem"
                   fontSize="12px"
                   left="1.25rem"
-                  marginTop='1rem'
+                  marginTop="1rem"
                 >
                   <Text>
-                    <b>People:</b> {rewards.usersPoolA || 0}
+                    <b>People:</b> {rewards?.usersPoolA || 0}
                   </Text>
                   <Text>
                     <b style={{ marginRight: 4 }}>Amount:</b>
-                    {rewards.amountPoolA?.toFixed(4) || 0} SepoliaETH
+                    {(rewards?.amountPoolA || 0)?.toFixed(4)} SepoliaETH
                   </Text>
                   <Text>
                     <b>Current Rewards Per User:</b>{" "}
-                    {rewards.currentRewardsPerUserPoolA?.toFixed(4) || 0}
+                    {(rewards?.currentRewardsPerUserPoolA || 0)?.toFixed(4)}
                   </Text>
                 </Box>
               </PoolStyles.Pool>
               <PoolStyles.Pool selected={side === 2} onClick={() => setSide(2)}>
-                
                 <Text
                   fontSize="3.5rem"
                   fontWeight="600"
                   color="#fff"
                   fontFamily="'Afacad', sans-serif"
                   display="flex"
-                  flexDirection='column'
+                  flexDirection="column"
                   alignItems="center"
                   justifyContent="center"
                 >
                   DC
-                  <Image src={justiceLeague} alt="avengers" width={350} height={350} />
+                  <Image
+                    src={justiceLeague}
+                    alt="avengers"
+                    width={350}
+                    height={350}
+                  />
                 </Text>
                 <Box
                   display="flex"
                   color="#fff"
                   gap="0.625rem"
                   fontSize="12px"
-                  marginTop='1rem'
-              
-           
+                  marginTop="1rem"
                 >
                   <Text>
-                    <b>People:</b> {rewards.usersPoolB || 0}
+                    <b>People:</b> {rewards?.usersPoolB || 0}
                   </Text>
                   <Text>
                     <b style={{ marginRight: 4 }}>Amount:</b>
-                    {rewards.amountPoolB?.toFixed(4) || 0} SepoliaETH
+                    {(rewards?.amountPoolB || 0)?.toFixed(4)} SepoliaETH
                   </Text>
                   <Text>
                     <b>Current Rewards Per User:</b>{" "}
-                    {rewards.currentRewardsPerUserPoolB?.toFixed(4) || 0}
+                    {(rewards?.currentRewardsPerUserPoolB || 0)?.toFixed(4)}
                   </Text>
                 </Box>
               </PoolStyles.Pool>
@@ -207,7 +222,7 @@ export const Pool: React.FC = () => {
             disabled={side === 0}
             rightIcon={<CheckCircleIcon />}
             onClick={() => buyTicket({ id: side })}
-            isDisabled={!side || isFinished}
+            isDisabled={!side || isFinished || !account}
           >
             Confirm
           </Button>
