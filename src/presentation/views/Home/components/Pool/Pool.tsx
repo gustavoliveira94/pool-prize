@@ -15,7 +15,9 @@ import {
 import { useDraw } from "@/core/hooks/useDraw";
 import { usePool } from "@/core/hooks/usePool";
 import { useCheckAdmin } from "@/core/hooks/useCheckAdmin";
-
+import Image from "next/image";
+import avengers from "@/presentation/assets/avengers.png";
+import justiceLeague from "@/presentation/assets/justice-league.png";
 import { PoolStyles } from "./styles";
 
 export const Pool: React.FC = () => {
@@ -29,9 +31,10 @@ export const Pool: React.FC = () => {
     <Grid
       id="pool"
       width="100%"
-      height="100vh"
+      height="115vh"
       display="flex"
       justifyContent="center"
+      gap=  '0 0.5rem'
       paddingBottom="4rem"
     >
       <Box
@@ -42,7 +45,7 @@ export const Pool: React.FC = () => {
         flexDirection="column"
       >
         <Box width="100%">
-          <Heading textAlign="center">Join in the pool prize!</Heading>
+          <Heading textAlign="center" fontSize='3rem'>Join the pool for a chance to win prizes!</Heading>
           <Divider width="100%" paddingTop="0.5rem" />
         </Box>
         <Box
@@ -52,7 +55,7 @@ export const Pool: React.FC = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Card width="80%" backgroundColor="#343a40">
+          <Card width="80%" backgroundColor="#272a2e" height='35rem' padding= '1rem 2rem'>
             <CardHeader>
               <Box
                 display="flex"
@@ -60,14 +63,14 @@ export const Pool: React.FC = () => {
                 justifyContent="space-between"
               >
                 <Heading as="p" fontSize="1.2rem" color="#fff">
-                  MARVEL X DC - Choose a side to join it!
+                  MARVEL X DC - Choose a side to join!
                 </Heading>
                 <Box display="flex" alignItems="center" gap="0.9375rem">
                   <Text color="#fff">
                     <b>Available to claim:</b> {claim} SepoliaETH
                   </Text>
                   <Text color="#fff">
-                    <b>Ticket:</b> 0.001 SepoliaETH
+                    <b>Ticket Price:</b> 0.001 SepoliaETH
                   </Text>
                 </Box>
               </Box>
@@ -75,14 +78,28 @@ export const Pool: React.FC = () => {
             </CardHeader>
             <CardBody padding="0" display="flex" position="relative">
               <PoolStyles.Pool selected={side === 1} onClick={() => setSide(1)}>
+   
+                <Text
+                  fontSize="3.5rem"
+                  fontWeight="600"
+                  color="#fff"
+                  fontFamily="'Afacad', sans-serif"
+                  display="flex"
+                  flexDirection='column'
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  
+                  MARVEL
+                  <Image src={avengers} alt="avengers" width={220} height={220} />
+                </Text>
                 <Box
                   display="flex"
                   color="#fff"
                   gap="0.625rem"
                   fontSize="12px"
-                  position="absolute"
-                  bottom="0"
                   left="1.25rem"
+                  marginTop='1rem'
                 >
                   <Text>
                     <b>People:</b> {rewards.usersPoolA || 0}
@@ -96,34 +113,30 @@ export const Pool: React.FC = () => {
                     {rewards.currentRewardsPerUserPoolA || 0}
                   </Text>
                 </Box>
+              </PoolStyles.Pool>
+              <PoolStyles.Pool selected={side === 2} onClick={() => setSide(2)}>
+                
                 <Text
                   fontSize="3.5rem"
                   fontWeight="600"
                   color="#fff"
                   fontFamily="'Afacad', sans-serif"
+                  display="flex"
+                  flexDirection='column'
+                  alignItems="center"
+                  justifyContent="center"
                 >
-                  MARVEL
+                  DC
+                  <Image src={justiceLeague} alt="avengers" width={350} height={350} />
                 </Text>
-              </PoolStyles.Pool>
-              <Text
-                position="absolute"
-                top="35%"
-                left="50%"
-                color="#fff"
-                fontSize="50px"
-                fontFamily="'Afacad', sans-serif"
-              >
-                X
-              </Text>
-              <PoolStyles.Pool selected={side === 2} onClick={() => setSide(2)}>
                 <Box
                   display="flex"
                   color="#fff"
                   gap="0.625rem"
                   fontSize="12px"
-                  position="absolute"
-                  bottom="0"
-                  right="1.25rem"
+                  marginTop='1rem'
+              
+           
                 >
                   <Text>
                     <b>People:</b> {rewards.usersPoolB || 0}
@@ -137,14 +150,6 @@ export const Pool: React.FC = () => {
                     {rewards.currentRewardsPerUserPoolB || 0}
                   </Text>
                 </Box>
-                <Text
-                  fontSize="3.5rem"
-                  fontWeight="600"
-                  color="#fff"
-                  fontFamily="'Afacad', sans-serif"
-                >
-                  DC
-                </Text>
               </PoolStyles.Pool>
             </CardBody>
           </Card>
