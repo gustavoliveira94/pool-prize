@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useWeb3 } from "@/core/states/web3";
 import { ethereum } from "@/core/utils/ethereum";
 import contractsAbi from "@/configs/abis/contract.json";
-import { Contract as IContract } from "mycontract/types";
+import { Contract as IContract } from "@/types";
 
 export const useContract = () => {
   const [{ account }] = useWeb3();

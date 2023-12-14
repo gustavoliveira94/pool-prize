@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typechain": "typechain --target web3-v1 --out-dir ./node_modules/mycontract/types/ ./src/configs/abis/*.json"
+    "typechain": "typechain --target web3-v1 --out-dir ./src/types/ ./src/configs/abis/*.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
