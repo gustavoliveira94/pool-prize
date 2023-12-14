@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import { Web3 } from "web3";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 
 import { useToast } from "./useToast";
-import { useWeb3 } from "../state/web3";
+import { useWeb3 } from "../states/web3";
+import { ethereum } from "../utils/ethereum";
 
 export const useWallet = () => {
   const { toast } = useToast();
@@ -18,8 +19,7 @@ export const useWallet = () => {
     }
 
     try {
-      const provider = new Web3(window.ethereum);
-      const accounts = await provider.eth.requestAccounts();
+      const accounts = await ethereum.eth.requestAccounts();
 
       if (!accounts?.length) {
         return toast({
@@ -42,28 +42,29 @@ export const useWallet = () => {
     }
   };
 
-  const getBalance = useCallback(async () => {
+  const getBalance = async () => {
     try {
       if (!account) {
         return;
       }
 
-      const provider = new Web3(window.ethereum);
-      const balance = await provider.eth.getBalance(account);
+      const balance = await ethereum.eth.getBalance(account);
 
       setWeb3({ balance: !!balance ? Number(balance) / 10 ** 18 : 0 });
     } catch (e) {
       return;
     }
-  }, [account, setWeb3]);
+  };
 
   const disconnect = () => {
     setWeb3({ account: "", balance: 0 });
   };
 
   useEffect(() => {
-    getBalance();
-  }, [account, getBalance]);
+    if (account) {
+      getBalance();
+    }
+  }, [account]);
 
   return {
     connect,
