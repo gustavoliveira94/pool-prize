@@ -67,7 +67,7 @@ export const Pool: React.FC = () => {
                 </Heading>
                 <Box display="flex" alignItems="center" gap="0.9375rem">
                   <Text color="#fff">
-                    <b>Available to claim:</b> {claim} SepoliaETH
+                    <b>Available to claim:</b> {claim || 0} SepoliaETH
                   </Text>
                   <Text color="#fff">
                     <b>Ticket Price:</b> 0.001 SepoliaETH
@@ -106,11 +106,11 @@ export const Pool: React.FC = () => {
                   </Text>
                   <Text>
                     <b style={{ marginRight: 4 }}>Amount:</b>
-                    {rewards.amountPoolA || 0} SepoliaETH
+                    {rewards.amountPoolA?.toFixed(4) || 0} SepoliaETH
                   </Text>
                   <Text>
                     <b>Current Rewards Per User:</b>{" "}
-                    {rewards.currentRewardsPerUserPoolA || 0}
+                    {rewards.currentRewardsPerUserPoolA?.toFixed(4) || 0}
                   </Text>
                 </Box>
               </PoolStyles.Pool>
@@ -143,11 +143,11 @@ export const Pool: React.FC = () => {
                   </Text>
                   <Text>
                     <b style={{ marginRight: 4 }}>Amount:</b>
-                    {rewards.amountPoolB || 0} SepoliaETH
+                    {rewards.amountPoolB?.toFixed(4) || 0} SepoliaETH
                   </Text>
                   <Text>
                     <b>Current Rewards Per User:</b>{" "}
-                    {rewards.currentRewardsPerUserPoolB || 0}
+                    {rewards.currentRewardsPerUserPoolB?.toFixed(4) || 0}
                   </Text>
                 </Box>
               </PoolStyles.Pool>

@@ -5,10 +5,15 @@ import { useToast } from "./useToast";
 import { useWeb3 } from "../states/web3";
 import { ethereum } from "../utils/ethereum";
 import Web3 from "web3";
+import { useCheckAdmin } from "./useCheckAdmin";
+import { useContract } from "./useContract";
 
 export const useWallet = () => {
   const { toast } = useToast();
   const [{ account, balance }, { setWeb3 }] = useWeb3();
+
+  const { contract } = useContract();
+  const { checkAdmin } = useCheckAdmin();
 
   const connect = async () => {
     if (!window?.ethereum) {
@@ -63,6 +68,8 @@ export const useWallet = () => {
         method: "wallet_switchEthereumChain",
         params: [{ chainId: Web3.utils.toHex(11155111) }],
       });
+
+      await checkAdmin();
     } catch (error) {
       return;
     }
@@ -73,11 +80,11 @@ export const useWallet = () => {
   };
 
   useEffect(() => {
-    if (account) {
+    if (account && contract) {
       checkNetwork();
       getBalance();
     }
-  }, [account]);
+  }, [account, contract]);
 
   return {
     connect,
