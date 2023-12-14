@@ -4,7 +4,6 @@
 
 import type BN from "bn.js";
 import type { ContractOptions } from "web3-eth-contract";
-import type { EventLog } from "web3-core";
 import type { EventEmitter } from "events";
 import type {
   Callback,
@@ -12,8 +11,8 @@ import type {
   NonPayableTransactionObject,
   BlockType,
   ContractEventLog,
-  BaseContract,
 } from "./types";
+import { EventLog } from "ethers";
 
 export interface EventOptions {
   filter?: object;
@@ -36,7 +35,7 @@ export type Withdraw = ContractEventLog<{
   1: string;
 }>;
 
-export interface Contract extends BaseContract {
+export interface Contract {
   constructor(
     jsonInterface: any[],
     address?: string,

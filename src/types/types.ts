@@ -2,9 +2,50 @@
 /* tslint:disable */
 /* eslint-disable */
 import type BN from "bn.js";
+import { EventLog, TransactionReceipt } from "ethers";
 import type { EventEmitter } from "events";
-import type { EventLog, PromiEvent, TransactionReceipt } from "web3-core/types";
 import type { Contract } from "web3-eth-contract";
+
+import Abi from "@/configs/abis/contract.json";
+
+type PromiEventType = "transactionHash" | "receipt" | "confirmation" | "error";
+
+export default interface PromiEvent<T> extends Promise<T> {
+  once(
+    type: "transactionHash",
+    handler: (receipt: string) => void
+  ): PromiEvent<T>;
+  once(
+    type: "receipt",
+    handler: (receipt: TransactionReceipt) => void
+  ): PromiEvent<T>;
+  once(
+    type: "confirmation",
+    handler: (confNumber: number, receipt: TransactionReceipt) => void
+  ): PromiEvent<T>;
+  once(type: "error", handler: (error: Error) => void): PromiEvent<T>;
+  once(
+    type: PromiEventType,
+    handler: (error: Error | TransactionReceipt | string) => void
+  ): PromiEvent<T>;
+  on(
+    type: "transactionHash",
+    handler: (receipt: string) => void
+  ): PromiEvent<T>;
+  on(
+    type: "receipt",
+    handler: (receipt: TransactionReceipt) => void
+  ): PromiEvent<T>;
+  on(
+    type: "confirmation",
+    handler: (confNumber: number, receipt: TransactionReceipt) => void
+  ): PromiEvent<T>;
+  on(type: "error", handler: (error: Error) => void): PromiEvent<T>;
+  on(
+    type: "error" | "confirmation" | "receipt" | "transactionHash",
+    handler: (error: Error | TransactionReceipt | string) => void
+  ): PromiEvent<T>;
+}
 
 export interface EstimateGasOptions {
   from?: string;
@@ -70,4 +111,3 @@ export type BlockType =
   | "earliest"
   | number
   | BN;
-export type BaseContract = Omit<Contract, "clone" | "once">;
