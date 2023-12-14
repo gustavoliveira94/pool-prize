@@ -3,13 +3,10 @@ import { useContract } from "./useContract";
 
 export const useDraw = () => {
   const { contract } = useContract();
-  const [trigger, setTrigger] = useState(false);
 
   const draw = async () => {
     try {
       await contract?.methods.finishCurrentPrizedaw().send();
-
-      setTrigger(true);
     } catch (e) {
       return;
     }
@@ -17,7 +14,5 @@ export const useDraw = () => {
 
   return {
     draw,
-    trigger,
-    setTrigger,
   };
 };

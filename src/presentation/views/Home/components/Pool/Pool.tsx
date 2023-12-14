@@ -21,10 +21,9 @@ import { PoolStyles } from "./styles";
 export const Pool: React.FC = () => {
   const [side, setSide] = useState(0);
   const { isAdmin } = useCheckAdmin();
-  const { draw, trigger, setTrigger } = useDraw();
-  const { buyTicket, isFinished, openPool, claim, withDraw, rewards } = usePool(
-    { trigger, setTrigger }
-  );
+  const { draw } = useDraw();
+  const { buyTicket, isFinished, openPool, claim, withDraw, rewards } =
+    usePool();
 
   return (
     <Grid
@@ -203,7 +202,7 @@ export const Pool: React.FC = () => {
             disabled={side === 0}
             rightIcon={<CheckCircleIcon />}
             onClick={() => buyTicket({ id: side })}
-            isDisabled={!side}
+            isDisabled={!side || isFinished}
           >
             Confirm
           </Button>

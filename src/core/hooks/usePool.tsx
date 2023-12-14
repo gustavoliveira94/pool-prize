@@ -14,15 +14,7 @@ interface IRewards {
   usersPoolB: number;
 }
 
-interface IUsePool {
-  trigger: boolean;
-  setTrigger: (e: boolean) => void;
-}
-
-export const usePool = ({
-  trigger: claimTrigger,
-  setTrigger: setClaimTrigger,
-}: IUsePool) => {
+export const usePool = () => {
   const { contract } = useContract();
   const toast = useToast();
   const [{ account }] = useWeb3();
@@ -32,7 +24,6 @@ export const usePool = ({
   const [rewards, setRewards] = useState<IRewards>({} as IRewards);
 
   const [trigger, setTrigger] = useState(false);
-  const [triggerRewards, setTriggerRewards] = useState("");
 
   const openPool = async () => {
     try {
@@ -67,7 +58,7 @@ export const usePool = ({
         status: "success",
       });
 
-      setTriggerRewards("rewards");
+      setTrigger(!trigger);
     } catch (e) {
       toast({
         title: "Transaction error!",
@@ -147,8 +138,7 @@ export const usePool = ({
           ?.length,
       };
 
-      setTriggerRewards("");
-      setClaimTrigger(false);
+      setTrigger(!trigger);
 
       return setRewards(formatResult);
     } catch (e) {
@@ -159,13 +149,8 @@ export const usePool = ({
   useEffect(() => {
     availableClaim();
     checkFinishedPool();
-  }, [account, triggerRewards, claimTrigger]);
-
-  useEffect(() => {
-    if (account || triggerRewards === "rewards" || claimTrigger) {
-      getRewards();
-    }
-  }, [account, triggerRewards, claimTrigger]);
+    getRewards();
+  }, [account, trigger]);
 
   return {
     buyTicket,
